@@ -1,0 +1,92 @@
+{
+    "name": "${environmentName}",
+    "description": "Jitsi Blueprint",
+    "version": "1.0.0",
+    "ssh-key": "jitsi",
+    "author": "https://github.com/akarasulu",
+    "containers": [
+        {
+            "hostname": "${hostname}",
+            "template": "debian-stretch",
+            "peer-criteria": "CRITERIA",
+            "size": "${containerSize}",
+            "port-mapping": [
+                {
+                    "protocol": "https",
+                    "domain": "${domain}",
+                    "internal-port": "80",
+                    "external-port": "443"
+                }
+            ]
+        }
+    ],
+    "peer-criteria": [
+        {
+            "name": "CRITERIA"
+        }
+    ],
+    "ansible-configuration": {
+        "source-url": "https://github.com/akarasulu/jitsi-bp/archive/master.zip",
+        "ansible-playbook": "main.yml",
+        "extra-vars": [
+            {
+                "key": "domain",
+                "value": "${domain}"
+            },            {
+                "key": "hostname",
+                "value": "${hostname}"
+            },
+            {
+                "key": "email",
+                "value": "${email}"
+            },
+            {
+                "key": "password",
+                "value": "${password}"
+            }
+        ],
+        "groups": [
+            {
+                "name": "jitsi",
+                "hostnames": [
+                    "${hostname}"
+                ]
+            }
+        ]
+    },
+    "user-variables": {
+        "environmentName": {
+            "description": "Environment's name",
+            "type": "string",
+            "default": "jitsi",
+            "validation": "[a-zA-Z0-9_]+"
+        },
+        "domain": {
+            "description": "Domain name",
+            "type": "domain",
+            "default": "jitsi.envs.subut.ai",
+            "validation": "[a-zA-Z0-9_]+"
+        },
+        "hostname": {
+            "description": "Hostname of the container",
+            "type": "string",
+            "default": "jitsi",
+            "validation": "[a-zA-Z0-9_]+"
+        },
+        "email": {
+            "description": "Admin user identity/email",
+            "type": "string"
+        },
+        "password": {
+            "description": "Admin user password",
+            "type": "string",
+            "default": "secret"
+        },
+        "containerSize": {
+            "description": "Container Size",
+            "type": "enum",
+            "default": "MEDIUM",
+            "validation": "MEDIUM,LARGE,HUGE"
+        }
+    }
+}
