@@ -1,8 +1,8 @@
 {
     "name": "${environmentName}",
     "description": "Jitsi Blueprint",
-    "version": "1.0.0",
-    "ssh-key": "jitsi",
+    "version": "1.0.1",
+    "ssh-key": "meet",
     "author": "https://github.com/akarasulu",
     "containers": [
         {
@@ -14,7 +14,7 @@
                 {
                     "protocol": "https",
                     "domain": "${domain}",
-                    "internal-port": "80",
+                    "internal-port": "443",
                     "external-port": "443"
                 }
             ]
@@ -47,7 +47,7 @@
         ],
         "groups": [
             {
-                "name": "jitsi",
+                "name": "meet",
                 "hostnames": [
                     "${hostname}"
                 ]
@@ -58,19 +58,19 @@
         "environmentName": {
             "description": "Environment's name",
             "type": "string",
-            "default": "jitsi",
+            "default": "meet",
             "validation": "[a-zA-Z0-9_]+"
         },
         "domain": {
             "description": "Domain name",
             "type": "domain",
-            "default": "jitsi.envs.subut.ai",
+            "default": "meet.envs.subut.ai",
             "validation": "[a-zA-Z0-9_]+"
         },
         "hostname": {
             "description": "Hostname of the container",
             "type": "string",
-            "default": "jitsi",
+            "default": "meet",
             "validation": "[a-zA-Z0-9_]+"
         },
         "email": {

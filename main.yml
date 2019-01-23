@@ -1,7 +1,7 @@
 # Ansible Playbook for Subutai Jitsi Blueprint
 --- 
 
-- hosts: jitsi
+- hosts: meet
   remote_user: root
   tasks:
 
@@ -29,6 +29,8 @@
           - apt-transport-https
           - sudo
           - locales
+          - debconf
+          - debconf-utils
         allow_unauthenticated: yes
 
     - name: Transfer locales_setup.sh
@@ -52,6 +54,20 @@
         update_cache: true
         state: present
     
+    - name: Set jitsi-videobridge/jvb-hostname debconf variable for hostname
+      debconf:
+        name: jitsi-videobridge
+        question: jitsi-videobridge/jvb-hostname
+        vtype: string
+        value: {{ subutai.user_variables.domain }}
+
+    - name: Set jitsi-meet/cert-choice debconf variable for certificate
+      debconf:
+        name: jitsi-meet
+        question: jitsi-meet/cert-choice 
+        vtype: select
+        value: 'Self-signed certificate will be generated'
+
     - name: Install required debs
       apt:
         name:
