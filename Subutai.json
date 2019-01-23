@@ -32,7 +32,8 @@
             {
                 "key": "domain",
                 "value": "${domain}"
-            },            {
+            },            
+            {
                 "key": "hostname",
                 "value": "${hostname}"
             },
