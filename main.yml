@@ -59,7 +59,7 @@
         name: jitsi-videobridge
         question: jitsi-videobridge/jvb-hostname
         vtype: string
-        value: {{ subutai.user_variables.domain }}
+        value: '{{ subutai.user_variables.domain }}'
 
     - name: Set jitsi-meet/cert-choice debconf variable for certificate
       debconf:
